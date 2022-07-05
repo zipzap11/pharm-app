@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import React from "react";
 import SearchingBar from "../components/SearchingBar";
 import Separator from "../components/Separator";
@@ -10,6 +10,7 @@ export default function Home({ navigation }) {
   const handleSearch = (query) => {
     navigation.navigate("Search", { query: query });
   };
+
   return (
     <Wrapper>
       <SearchingBar onSubmit={handleSearch} />

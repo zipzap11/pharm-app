@@ -3,8 +3,12 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "../screens/Home";
 import Search from "../screens/Search";
-import Cart from "../components/Cart";
+import CartIcon from "../components/Cart";
 import Detail from "../screens/Detail";
+import Cart from "../screens/Cart";
+import Checkout from "../screens/Checkout";
+import Address from "../screens/Address";
+import AddAddress from "../screens/AddAddress";
 
 const Stack = createNativeStackNavigator();
 export default function HomeStackNavigation() {
@@ -14,12 +18,9 @@ export default function HomeStackNavigation() {
         options={{
           //   headerShown: true,
           headerTitle: (props) => (
-            <Image
-              source={require("../../assets/icon.png")}
-              style={styles.logo}
-            />
+            <Image source={require("../assets/icon.png")} style={styles.logo} />
           ),
-          headerRight: () => <Cart />,
+          headerRight: () => <CartIcon />,
         }}
         name="a"
         component={Home}
@@ -37,10 +38,38 @@ export default function HomeStackNavigation() {
       <Stack.Screen
         options={{
           title: "Detail Produk",
-          headerRight: () => <Cart />,
+          headerRight: () => <CartIcon />,
         }}
         name="Detail"
         component={Detail}
+      />
+      <Stack.Screen
+        name="Cart"
+        options={{
+          title: "Keranjang",
+        }}
+        component={Cart}
+      />
+      <Stack.Screen
+        name="Checkout"
+        options={{
+          title: "Pengiriman / Pembayaran",
+        }}
+        component={Checkout}
+      />
+      <Stack.Screen
+        name="Address"
+        options={{
+          title: "Pilih Alamat",
+        }}
+        component={Address}
+      />
+      <Stack.Screen
+        name="AddAddress"
+        options={{
+          title: "Tambah Alamat",
+        }}
+        component={AddAddress}
       />
     </Stack.Navigator>
   );

@@ -1,12 +1,13 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { COLORS } from "../../assets/design";
+import { parseNumToMoney } from "../../screens/util";
 
-export default function DetailHeader() {
+export default function DetailHeader({ name, price }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>QV Gentle Wash Pump 500gr</Text>
-      <Text style={styles.price}>Rp 35.000</Text>
+      <Text style={styles.title}>{name}</Text>
+      <Text style={styles.price}>Rp {parseNumToMoney(price)}</Text>
       <Text style={styles.stock}>Stok 50</Text>
     </View>
   );

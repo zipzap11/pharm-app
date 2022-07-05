@@ -9,33 +9,37 @@ import {
 import React from "react";
 import { COLORS } from "../../assets/design";
 import { useNavigation } from "@react-navigation/native";
+import { parseNumToMoney } from "../../screens/util";
 
-export default function Card() {
+export default function Card({ id, name, price, img_url }) {
   const nav = useNavigation();
   return (
     <TouchableOpacity
-      onPress={() => nav.navigate("Detail")}
+      onPress={() => nav.navigate("Detail", { id })}
       activeOpacity={0.6}
       style={styles.container}
     >
-      {/* <View style={styles.container}> */}
       <View style={{ backgroundColor: "black" }}>
         <Image
           style={styles.image}
-          source={require("../../assets/product.png")}
+          source={{
+            uri: img_url,
+          }}
         />
       </View>
-      <Description />
+      <Description name={name} price={price} />
     </TouchableOpacity>
   );
 }
 
-const Description = () => (
+const Description = ({ name, price }) => (
   <View style={styles.descContainer}>
     <Text style={{ marginBottom: 7, fontSize: 12, fontWeight: "600" }}>
-      QV Gentle Wash Pump 500gr
+      {name}
     </Text>
-    <Text style={{ fontWeight: "700", fontSize: 12 }}>Rp 35.000</Text>
+    <Text style={{ fontWeight: "700", fontSize: 12 }}>
+      Rp {parseNumToMoney(price)}
+    </Text>
   </View>
 );
 const width = Dimensions.get("window").width;

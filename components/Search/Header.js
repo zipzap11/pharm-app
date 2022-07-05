@@ -11,16 +11,16 @@ import SearchingBar from "../SearchingBar";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { COLORS } from "../../assets/design";
 
-export default function Header({ value, setValue, onSubmit, onBack }) {
+export default function Header({ onSubmit, onBack, value, setValue }) {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={onBack}>
         <MaterialIcons style={styles.backIcon} name="arrow-back" size={25} />
       </TouchableOpacity>
       <SearchingBar
-        onSubmit={onSubmit}
         setValue={setValue}
         value={value}
+        onSubmit={onSubmit}
         bgColor={COLORS.lightGray}
         flex={1}
       />

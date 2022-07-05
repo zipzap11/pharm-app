@@ -1,11 +1,13 @@
+import { useNavigation } from "@react-navigation/native";
 import { Badge } from "@rneui/themed";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { COLORS } from "../assets/design";
 
 export default function Cart() {
+  const nav = useNavigation();
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => nav.navigate("Cart")}>
       <Badge
         value={3}
         status="error"

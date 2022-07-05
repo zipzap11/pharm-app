@@ -5,7 +5,12 @@ import { COLORS } from "../../assets/design";
 export default function LargeProductImage({ src }) {
   return (
     <View style={styles.imgContainer}>
-      <Image style={styles.img} source={src} />
+      <Image
+        style={styles.img}
+        source={{
+          uri: src,
+        }}
+      />
     </View>
   );
 }

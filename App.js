@@ -1,83 +1,106 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer } from "@react-navigation/native";
-import { useState } from "react";
 import {
-  StyleSheet,
-  Image,
-  Text,
-  TouchableOpacity,
-  BackHandler,
-} from "react-native";
+  getFocusedRouteNameFromRoute,
+  NavigationContainer,
+} from "@react-navigation/native";
+import { useContext, useState } from "react";
+import { StyleSheet } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import { COLORS } from "./assets/design";
-import Back from "./components/Back";
-import Cart from "./components/Cart";
-import HomeStackNavigation from "./components/Navigation/HomeStackNavigation";
+import Octicons from "react-native-vector-icons/Octicons";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import HomeStackNavigation from "./Navigation/HomeStackNavigation";
 import Account from "./screens/Account";
-import Detail from "./screens/Detail";
 import History from "./screens/History";
-import Home from "./screens/Home";
-import Search from "./screens/Search";
+import WebView from "./screens/WebView";
+import "react-native-get-random-values";
+import { UserContextProvider } from "./context/UserContext";
+import { CartContextProvider } from "./context/CartContext";
+import { COLORS } from "./assets/design";
+import TransactionStackNavigator from "./Navigation/TransactionStackNavigation";
 
 const Tab = createBottomTabNavigator();
+
 export default function App() {
-  const [showHomeTabBar, setShowHomeTabBar] = useState(true);
+  const getHomeTabBarStyle = (route) => {
+    const routeName = getFocusedRouteNameFromRoute(route);
+    if (
+      routeName?.includes("Search") ||
+      routeName?.includes("Detail") ||
+      routeName?.includes("Cart") ||
+      routeName?.includes("Checkout") ||
+      routeName?.includes("Address")
+    ) {
+      return { display: "none" };
+    }
+    return null;
+  };
+
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => {
-          return {
-            tabBarIcon: ({ color }) => {
-              const { name } = route;
-              const props = { color: color, size: 20 };
-              if (name === "Home") return <Ionicons name="home" {...props} />;
-              if (name === "History")
-                return <MaterialIcons name="history" {...props} />;
-              if (name === "Account")
-                return <MaterialIcons name="account-box" {...props} />;
-            },
-          };
-        }}
-      >
-        <Tab.Screen
-          name="Home"
-          component={HomeStackNavigation}
-          options={{
-            headerShown: false,
-            tabBarStyle: showHomeTabBar ? {} : { display: "none" },
-          }}
-        />
-        <Tab.Screen name="History" component={History} />
-        {/* <Tab.Screen
-          options={({ navigation }) => {
-            return {
-              ...noTabBar,
-              headerShown: false,
-              tabBarStyle: {
-                display: "none",
-              },
-            };
-          }}
-          name="Search"
-          component={Search}
+    <UserContextProvider>
+      <CartContextProvider>
+        <NavigationContainer>
+          <Tab.Navigator
+            detachInactiveScreens={true}
+            screenOptions={({ route }) => {
+              return {
+                tabBarIcon: ({ color }) => {
+                  const { name } = route;
+                  const props = { color: color, size: 20 };
+                  if (name === "Home")
+                    return <Ionicons name="home" {...props} />;
+                  if (name === "History")
+                    return <MaterialIcons name="history" {...props} />;
+                  if (name === "Account")
+                    return <MaterialIcons name="account-box" {...props} />;
+                },
+                tabBarHideOnKeyboard: true,
+              };
+            }}
+          >
+            <Tab.Screen
+              name="Home"
+              component={HomeStackNavigation}
+              options={({ route }) => {
+                return {
+                  headerShown: false,
+                  tabBarStyle: getHomeTabBarStyle(route),
+                };
+              }}
+            />
+            <Tab.Screen
+              name="Transactions"
+              options={{
+                headerShown: false,
+                tabBarIcon: ({ focused, color, size }) => (
+                  <Octicons name="list-unordered" size={size} color={color} />
+                ),
+              }}
+              component={TransactionStackNavigator}
+            />
+            <Tab.Screen
+              name="Akun"
+              options={{
+                headerShown: false,
+                tabBarIcon: ({ focused, color, size }) => (
+                  <MaterialCommunityIcons
+                    name="account"
+                    size={size}
+                    color={color}
+                  />
+                ),
+              }}
+              component={Account}
+            />
+            {/* <Tab.Screen
+          name="WebView"
+          component={WebView}
+          options={{ headerShown: false }}
         /> */}
-        <Tab.Screen name="Account" component={Account} />
-        {/* <Tab.Screen
-          name="Detail"
-          component={Detail}
-          options={({ navigation }) => {
-            return {
-              ...noTabBar,
-              ...noBottomTabBar,
-              headerLeft: () => <Back onBack={() => navigation.goBack()} />,
-              headerTitle: "Detail Produk",
-              headerRight: () => <Cart />,
-            };
-          }}
-        /> */}
-      </Tab.Navigator>
-    </NavigationContainer>
+          </Tab.Navigator>
+        </NavigationContainer>
+      </CartContextProvider>
+    </UserContextProvider>
   );
 }
 

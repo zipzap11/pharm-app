@@ -4,6 +4,7 @@ import {
   Text,
   View,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Header from "../components/Search/Header";
@@ -12,58 +13,147 @@ import Card from "../components/Search/Card";
 import Separator from "../components/Separator";
 import { COLORS } from "../assets/design";
 import { Dialog } from "@rneui/themed";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FilterModal from "../components/Search/FilterModal";
+import axios from "axios";
+import { API_BASE_URL } from "../config";
+// const categories = [
+//   "Batuk & Flu",
+//   "Demam",
+//   "Jantung",
+//   "Herbal",
+//   "Mulut & Tenggorokan",
+//   "P3K",
+//   "Minyak",
+//   "Hewan",
+// ];
 
-const categories = [
-  "Batuk & Flu",
-  "Demam",
-  "Jantung",
-  "Herbal",
-  "Mulut & Tenggorokan",
-  "P3K",
-  "Minyak",
-  "Hewan",
+const sortAsc = "asc";
+const sortDesc = "desc";
+const a = [
+  {
+    id: 20,
+    name: "test",
+    price: "12308932",
+    img_url:
+      "https://drive.google.com/file/d/1LIrzIiLmwH1Mb3Ww8QAmvTCBwuaiFY0h/view",
+  },
 ];
-
 export default function Search({ navigation, route }) {
   const [modalFilterVisible, setModalFilterVisible] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
+  const { categoryID: catID, query: qparams } = route.params;
+  const [query, setQuery] = useState(qparams);
+  const [queryTrigger, setQueryTrigger] = useState(false);
+  const [sortType, setSortType] = useState(sortAsc);
+  const [categoryID, setCategoryID] = useState(catID);
+
   const handleBack = () => {
     navigation.goBack();
   };
   const toggleModalFilter = () => {
     setModalFilterVisible(!modalFilterVisible);
   };
+  const submitHandler = () => {
+    setQueryTrigger((p) => !p);
+  };
+
+  const filterClickHandler = (id) => {
+    toggleModalFilter();
+    setCategoryID(id);
+  };
+
+  const toggleSortType = () => {
+    if (sortType == sortAsc) setSortType(sortDesc);
+    if (sortType == sortDesc) setSortType(sortAsc);
+  };
+  useEffect(() => {
+    setIsLoading(true);
+    const queryParamObj = {};
+    if (categoryID) queryParamObj.category = categoryID;
+    if (query) queryParamObj.query = query;
+    if (sortType) queryParamObj.sort = sortType;
+    const param = new URLSearchParams(queryParamObj);
+    axios
+      .get(`${API_BASE_URL}/products?${param.toString()}`)
+      .then((res) => {
+        setIsLoading(false);
+        setProducts(res.data.data);
+      })
+      .catch((err) => {
+        setError(err);
+        setIsLoading(false);
+      });
+  }, [categoryID, queryTrigger, sortType]);
 
   return (
     <>
-      <Header onBack={handleBack} />
+      <Header
+        setValue={setQuery}
+        value={query}
+        onBack={handleBack}
+        onSubmit={submitHandler}
+      />
       <FilterModal
         title={"Pilih Kategori"}
-        data={categories}
+        onPick={filterClickHandler}
         isVisible={modalFilterVisible}
         toggleModal={toggleModalFilter}
       />
       <Wrapper>
-        <View style={styles.filterSorterContainer}>
-          <Filterer onPress={toggleModalFilter} />
-          <Separator horizontal={true} size={7} />
-          <Sorter text={"Harga Tertinggi"} />
-          <Separator horizontal={true} size={7} />
-          <Sorter text={"Harga Terendah"} />
-        </View>
-        <Separator size={10} />
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          numColumns={2}
-          data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-          renderItem={({ item }) => <Card />}
-          keyExtractor={(item) => item}
-          columnWrapperStyle={{
-            justifyContent: "space-between",
-            marginBottom: 8,
-          }}
-        />
+        {!isLoading && (
+          <View style={styles.filterSorterContainer}>
+            <Filterer onPress={toggleModalFilter} />
+            <Separator horizontal={true} size={7} />
+            <Sorter onPress={toggleSortType} text={"Harga Tertinggi"} />
+            <Separator horizontal={true} size={7} />
+            <Sorter onPress={toggleSortType} text={"Harga Terendah"} />
+          </View>
+        )}
+        {!isLoading ? (
+          products.length === 0 ? (
+            <View style={styles.emptyCont}>
+              <MaterialIcons
+                name="hourglass-empty"
+                size={40}
+                color={COLORS.gray}
+              />
+              <Text style={styles.empty}>
+                Tidak ada product dengan kriteria mu, coba gunakan filter atau
+                kata kunci lain.
+              </Text>
+            </View>
+          ) : (
+            <>
+              <Separator size={10} />
+              <FlatList
+                showsVerticalScrollIndicator={false}
+                numColumns={2}
+                data={a}
+                renderItem={({ item }) => (
+                  <Card
+                    id={item.id}
+                    img_url={item.image_url}
+                    name={item.name}
+                    price={item.price}
+                  />
+                )}
+                keyExtractor={(item, index) => index}
+                columnWrapperStyle={{
+                  justifyContent: "space-between",
+                  marginBottom: 8,
+                }}
+                style={{
+                  marginBottom: "35%",
+                }}
+              />
+            </>
+          )
+        ) : (
+          <ActivityIndicator size="large" color={COLORS.mainBlue} />
+        )}
       </Wrapper>
     </>
   );
@@ -115,5 +205,21 @@ const styles = StyleSheet.create({
   textMain: {
     color: COLORS.gray,
     fontWeight: "700",
+  },
+  empty: {
+    fontSize: 14,
+    color: COLORS.gray,
+    elevation: 1,
+    lineHeight: 25,
+    textAlign: "center",
+    marginTop: 5,
+  },
+  emptyCont: {
+    backgroundColor: "white",
+    marginTop: 10,
+    padding: 10,
+    borderRadius: 4,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

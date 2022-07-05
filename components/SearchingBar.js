@@ -11,8 +11,8 @@ import { COLORS } from "../assets/design";
 import { useState } from "react";
 
 const SearchingBar = ({
+  value, 
   setValue,
-  value,
   onSubmit,
   bgColor = "white",
   flex = 0,
@@ -20,18 +20,15 @@ const SearchingBar = ({
   const [input, setInput] = useState("");
 
   const handleSubmit = () => {
-    onSubmit();
+    onSubmit(input);
   };
   return (
     <View style={{ ...styles.container, backgroundColor: bgColor, flex: flex }}>
       <TextInput
-        onChangeText={(v) => {
-          console.log(v);
-          setInput(v);
-        }}
-        value={input}
+        onChangeText={(v) => setValue ? setValue(v) : setInput(v)}
+        value={value || input}
         style={styles.input}
-        placeholder="search..."
+        placeholder="cari barang..."
         onSubmitEditing={handleSubmit}
       />
       <TouchableOpacity onPress={handleSubmit}>
@@ -46,6 +43,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     borderRadius: 8,
+    elevation: 1,
   },
   input: {
     flex: 1,
