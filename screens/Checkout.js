@@ -1,20 +1,11 @@
-import {
-  TouchableOpacity,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { TouchableOpacity, StyleSheet, Text, View } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { COLORS } from "../assets/design";
 import Separator from "../components/Separator";
-import Picker from "../components/Picker";
-import AddressInput from "../components/Checkout/AddressInput";
 import PurchaseDetail from "../components/Checkout/PurchaseDetail";
 import PaymentSummary from "../components/Checkout/PaymentSummary";
 import FooterPrice from "../components/Cart/FooterPrice";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import Modal from "../components/Checkout/Modal";
 import ShippingModal from "../components/Checkout/ShippingModal";
 import { StackActions, useNavigation } from "@react-navigation/native";
 import { deviceStorage } from "../storage/deviceStorage";

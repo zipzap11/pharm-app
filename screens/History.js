@@ -48,6 +48,8 @@ export default function History() {
         {!isLogin && <NotLogin />}
         {!isLoading
           ? isLogin && (
+            transactions.length === 0 ?
+            <Text>Anda belum pernah membeli barang...</Text> :
               <FlatList
                 refreshing={isLoading}
                 onRefresh={refreshTriggerer}

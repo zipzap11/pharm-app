@@ -1,13 +1,6 @@
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  ActivityIndicator,
-} from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, ActivityIndicator } from "react-native";
 import React from "react";
 import { COLORS } from "../../assets/design";
-import { useNavigation } from "@react-navigation/native";
 import { Skeleton } from "@rneui/themed";
 import { parseNumToMoney } from "../../screens/util";
 

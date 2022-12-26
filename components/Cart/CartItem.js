@@ -1,11 +1,4 @@
-import {
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  ToastAndroid,
-} from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import { COLORS } from "../../assets/design";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
@@ -15,14 +8,7 @@ import { API_BASE_URL } from "../../config";
 import { deviceStorage } from "../../storage/deviceStorage";
 import { showToast } from "../../screens/util";
 
-export default function CartItem({
-  name,
-  price,
-  total,
-  img,
-  id,
-  actionTrigger,
-}) {
+export default function CartItem({ name, price, total, img, id, actionTrigger }) {
   const [error, setError] = useState("");
 
   const deleteItem = async () => {
@@ -114,7 +100,6 @@ export default function CartItem({
               onPress={subtractItemFromCart}
               style={styles.minusContainer}
             >
-              {/* <Text style={styles.minus}>-</Text> */}
               <FontAwesome5 name="minus" size={15} />
             </TouchableOpacity>
             <Text style={styles.total}>{total}</Text>
@@ -122,7 +107,6 @@ export default function CartItem({
               onPress={addItemToCart}
               style={styles.plusContainer}
             >
-              {/* <Text style={styles.plus}>+</Text> */}
               <FontAwesome5 name="plus" size={15} />
             </TouchableOpacity>
           </View>
@@ -146,12 +130,10 @@ const styles = StyleSheet.create({
     borderColor: "lightgray",
   },
   imgContainer: {
-    // alignSelf: "",
     height: "100%",
     marginRight: 7,
   },
   img: {
-    // flex: 1,
     resizeMode: "contain",
   },
   innerContainer: {

@@ -10,29 +10,19 @@ import { CartContext } from "../context/CartContext";
 import { useNavigation } from "@react-navigation/native";
 import { COLORS } from "../assets/design";
 import { showToast } from "./util";
-
-const data = [
-  {
-    name: "QV Gentle Wash Pump 500gr",
-    price: 35000,
-    total: 1,
-  },
-  {
-    name: "QV Gentle Wash Pump 500gr brrrr",
-    price: 35000,
-    total: 1,
-  },
-];
+import NotLogin from "../components/NotLogin";
+import { UserContext } from "../context/UserContext";
 
 export default function Cart() {
   const [cart, setCart] = useState({});
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [refetch, setRefetch] = useState(false);
-
   const navigation = useNavigation();
 
   const cartCtx = useContext(CartContext);
+  const {isLogin} = useContext(UserContext);
+
 
   const triggerAction = () => setRefetch((prev) => !prev);
   const buyClickHandler = () => {
@@ -68,10 +58,11 @@ export default function Cart() {
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
       <Wrapper>
+        {!isLogin && <NotLogin />}
         {!isLoading ? (
-          cart.items.length === 0 ? (
+          isLogin && cart.items.length === 0 ? (
             <Text style={styles.emptyCart}>keranjang mu kosong...</Text>
-          ) : (
+          ) : (isLogin &&
             cart.items.map((item, i) => (
               <CartItem
                 key={i}
@@ -85,6 +76,7 @@ export default function Cart() {
             ))
           )
         ) : (
+          isLogin &&
           <ActivityIndicator
             animating={true}
             size="large"

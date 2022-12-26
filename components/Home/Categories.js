@@ -1,64 +1,9 @@
-import {
-  TouchableOpacity,
-  FlatList,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-} from "react-native";
+import { TouchableOpacity, FlatList, StyleSheet, Text, View, Image } from "react-native";
 import React, { useEffect, useState } from "react";
 import { COLORS } from "../../assets/design";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import { API_BASE_URL } from "../../config";
-
-const CATEGORIES = [
-  {
-    id: 1,
-    name: "jantung",
-    img: require("../../assets/jantung.png"),
-  },
-  {
-    id: 2,
-    name: "batuk & flu",
-    img: require("../../assets/batuk_flu.png"),
-  },
-  {
-    id: 3,
-    name: "asma",
-    img: require("../../assets/asma.png"),
-  },
-  {
-    id: 4,
-    name: "herbal",
-    img: require("../../assets/herbal.png"),
-  },
-  {
-    id: 5,
-    name: "hewan",
-    img: require("../../assets/hewan.png"),
-  },
-  {
-    id: 6,
-    name: "pria",
-    img: require("../../assets/pria.png"),
-  },
-  {
-    id: 7,
-    name: "minyak",
-    img: require("../../assets/minyak.png"),
-  },
-  {
-    id: 8,
-    name: "P3K",
-    img: require("../../assets/p3k.png"),
-  },
-  {
-    id: 9,
-    name: "mulut & tenggorokan",
-    img: require("../../assets/mulut_tenggorokan.png"),
-  },
-];
 
 export default function Categories() {
   const [categories, setCategories] = useState([]);

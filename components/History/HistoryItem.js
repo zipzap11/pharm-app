@@ -2,15 +2,12 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { parseNumToMoney } from "../../screens/util";
 import { COLORS } from "../../assets/design";
-import { Button } from "@rneui/themed";
 import { useNavigation } from "@react-navigation/native";
 
 export default function HistoryItem({ date, status, list, price, paymentUrl }) {
   const navigation = useNavigation();
-  const handlePayment = () => {
-    console.log("url = ", paymentUrl);
-    navigation.navigate("Payment", { paymentUrl });
-  };
+  const handlePayment = () => navigation.navigate("Payment", { paymentUrl });
+  
   return (
     <View style={styles.container}>
       <ItemHeader date={date} status={status} />

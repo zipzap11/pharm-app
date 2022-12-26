@@ -1,44 +1,17 @@
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  ActivityIndicator,
-} from "react-native";
+import { FlatList, StyleSheet, Text, View, TouchableOpacity, ActivityIndicator } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Header from "../components/Search/Header";
 import Wrapper from "../components/Wrapper";
 import Card from "../components/Search/Card";
 import Separator from "../components/Separator";
 import { COLORS } from "../assets/design";
-import { Dialog } from "@rneui/themed";
 import { useEffect, useState } from "react";
 import FilterModal from "../components/Search/FilterModal";
 import axios from "axios";
 import { API_BASE_URL } from "../config";
-// const categories = [
-//   "Batuk & Flu",
-//   "Demam",
-//   "Jantung",
-//   "Herbal",
-//   "Mulut & Tenggorokan",
-//   "P3K",
-//   "Minyak",
-//   "Hewan",
-// ];
 
 const sortAsc = "asc";
 const sortDesc = "desc";
-const a = [
-  {
-    id: 20,
-    name: "test",
-    price: "12308932",
-    img_url:
-      "https://drive.google.com/file/d/1LIrzIiLmwH1Mb3Ww8QAmvTCBwuaiFY0h/view",
-  },
-];
 export default function Search({ navigation, route }) {
   const [modalFilterVisible, setModalFilterVisible] = useState(false);
   const [products, setProducts] = useState([]);
@@ -165,7 +138,6 @@ const Sorter = ({ onPress, text }) => (
     activeOpacity={0.6}
     style={{ ...styles.filterSorter }}
   >
-    {/* <MaterialIcons style={{ ...styles.icon }} size={15} name="sort" /> */}
     <Text style={styles.textMain}>{text}</Text>
   </TouchableOpacity>
 );

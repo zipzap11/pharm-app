@@ -2,13 +2,7 @@ import { StyleSheet, Text } from "react-native";
 import React from "react";
 import { Dialog } from "@rneui/themed";
 
-export default function MyOverlay({
-  isVisible,
-  onClose,
-  isError,
-  toPayment,
-  isLoading,
-}) {
+export default function MyOverlay({ isVisible, onClose, isError, toPayment, isLoading }) {
   return (
     <Dialog isVisible={isVisible} onBackdropPress={onClose}>
       {isLoading && <Dialog.Loading />}

@@ -1,11 +1,4 @@
-import {
-  ActivityIndicator,
-  FlatList,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import CustomModal from "./Modal";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -13,77 +6,14 @@ import Separator from "../Separator";
 import { COLORS } from "../../assets/design";
 import { parseNumToMoney } from "../../screens/util";
 
-const dummy = [
-  {
-    id: 1,
-    name: "CTC (JNE City Courier)",
-    price: 8000,
-    estimation: "1-2",
-  },
-  {
-    id: 2,
-    name: "CTC (JNE City Courier)",
-    price: 8000,
-    estimation: "1-2",
-  },
-  {
-    id: 3,
-    name: "CTC (JNE City Courier)",
-    price: 8000,
-    estimation: "1-2",
-  },
-  {
-    id: 4,
-    name: "CTC (JNE City Courier)",
-    price: 8000,
-    estimation: "1-2",
-  },
-  {
-    id: 5,
-    name: "CTC (JNE City Courier)",
-    price: 8000,
-    estimation: "1-2",
-  },
-  {
-    id: 6,
-    name: "CTC (JNE City Courier)",
-    price: 8000,
-    estimation: "1-2",
-  },
-  {
-    id: 7,
-    name: "CTC (JNE City Courier)",
-    price: 8000,
-    estimation: "1-2",
-  },
-  {
-    id: 8,
-    name: "CTC (JNE City Courier)",
-    price: 8000,
-    estimation: "1-2",
-  },
-  {
-    id: 9,
-    name: "CTC (JNE City Courier)",
-    price: 8000,
-    estimation: "1-2",
-  },
-  {
-    id: 10,
-    name: "CTC (JNE City Courier)",
-    price: 8000,
-    estimation: "1-2",
-  },
-];
 
 export default function ShippingModal({
   isVisible,
   setIsVisible,
-  data = dummy,
+  data,
   pickHandler,
   isLoading,
 }) {
-  console.log("isLoading = ", isLoading);
   return (
     <CustomModal isVisible={isVisible} onClose={() => setIsVisible(false)}>
       <Header onClose={() => setIsVisible(false)} />
