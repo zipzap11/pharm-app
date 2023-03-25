@@ -7,7 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 export default function HistoryItem({ date, status, list, price, paymentUrl }) {
   const navigation = useNavigation();
   const handlePayment = () => navigation.navigate("Payment", { paymentUrl });
-  
+  console.log('list = ', list)
   return (
     <View style={styles.container}>
       <ItemHeader date={date} status={status} />

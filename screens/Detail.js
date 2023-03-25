@@ -14,7 +14,7 @@ import { showToast } from "./util";
 export default function Detail({ navigation, route }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingAdd, setIsLoadingAdd] = useState(false);
-  const [error, setError] = useStDate("");
+  const [error, setError] = useState("");
   const [data, setData] = useState({});
   const { id } = route.params;
 
@@ -33,7 +33,15 @@ export default function Detail({ navigation, route }) {
 
   const addItemToCart = async () => {
     setIsLoadingAdd(true);
+    console.log("mari")
     const token = await deviceStorage.getItem("refresh_token");
+    console.log("token = ", token)
+    if (token.length == 0) {
+      console.log("sini")
+      showToast("Silakan login untuk menambahkan produk...")
+      setIsLoadingAdd(false);
+      return;
+    }
     axios
       .post(`${API_BASE_URL}/carts?product=${data.id}`, null, {
         headers: {
@@ -58,7 +66,7 @@ export default function Detail({ navigation, route }) {
           <ScrollView style={{ backgroundColor: "white" }}>
             <LargeProductImage src={data.image_url} />
             <Wrapper>
-              <DetailHeader name={data.name} price={data.price} />
+              <DetailHeader name={data.name} price={data.price} stock={data.stock} />
               <Separator size={10} />
               <DetailSection title={"Deskripsi"} section={data.description} />
               <Separator size={10} />

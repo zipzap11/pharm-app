@@ -10,6 +10,7 @@ import { Skeleton } from "@rneui/themed";
 import Separator from "../components/Separator";
 import { UserContext } from "../context/UserContext";
 import NotLogin from "../components/NotLogin";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function History() {
   const [transactions, setTransactions] = useState([]);
@@ -19,7 +20,7 @@ export default function History() {
   const refreshTriggerer = () => {
     setRefreshTrigger((prev) => !prev);
   };
-
+  const isFocused = useIsFocused()
   useEffect(() => {
     const fetchTransactions = async () => {
       setIsLoading(true);
@@ -31,6 +32,7 @@ export default function History() {
       try {
         const resp = await axios.get(url, { headers });
         setTransactions(resp.data.data);
+        console.log("resp = ", resp.data.data)
         setIsLoading(false);
       } catch (err) {
         showToast("Gagal mengambil data transaksi, coba lagi!");
@@ -40,8 +42,8 @@ export default function History() {
     if (isLogin) {
       fetchTransactions();
     }
-  }, [refreshTrigger]);
-
+  }, [refreshTrigger, isFocused]);
+  console.log("transactions = ", transactions[0])
   return (
     <View>
       <Wrapper>

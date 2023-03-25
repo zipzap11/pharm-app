@@ -1,88 +1,23 @@
-import {
-  ActivityIndicator,
-  FlatList,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import Item from "../components/Address/Item";
 import Wrapper from "../components/Wrapper";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { COLORS } from "../assets/design";
 import SearchBar from "../components/Address/SearchBar";
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { API_BASE_URL } from "../config";
 import { showToast } from "./util";
 import { deviceStorage } from "../storage/deviceStorage";
-
-const dummy = [
-  {
-    name: "Rumah",
-    province: "Jawa Barat",
-    state: "Kabupaten Bandung",
-    postalCode: "123982",
-    details: "Jl bandung lautan api no. 90 rt 90 rw 20 blok r3 no 33",
-  },
-  {
-    name: "Rumah",
-    province: "Jawa Barat",
-    state: "Kabupaten Bandung",
-    postalCode: "123982",
-    details: "Jl bandung lautan api no. 90 rt 90 rw 20 blok r3 no 33",
-  },
-  {
-    name: "Rumah",
-    province: "Jawa Barat",
-    state: "Kabupaten Bandung",
-    postalCode: "123982",
-    details: "Jl bandung lautan api no. 90 rt 90 rw 20 blok r3 no 33",
-  },
-  {
-    name: "Rumah",
-    province: "Jawa Barat",
-    state: "Kabupaten Bandung",
-    postalCode: "123982",
-    details: "Jl bandung lautan api no. 90 rt 90 rw 20 blok r3 no 33",
-  },
-  {
-    name: "Rumah",
-    province: "Jawa Barat",
-    state: "Kabupaten Bandung",
-    postalCode: "123982",
-    details: "Jl bandung lautan api no. 90 rt 90 rw 20 blok r3 no 33",
-  },
-  {
-    name: "Rumah",
-    province: "Jawa Barat",
-    state: "Kabupaten Bandung",
-    postalCode: "123982",
-    details: "Jl bandung lautan api no. 90 rt 90 rw 20 blok r3 no 33",
-  },
-  {
-    name: "Rumah",
-    province: "Jawa Barat",
-    state: "Kabupaten Bandung",
-    postalCode: "123982",
-    details: "Jl bandung lautan api no. 90 rt 90 rw 20 blok r3 no 33",
-  },
-  {
-    name: "Rumah",
-    province: "Jawa Barat",
-    state: "Kabupaten Bandung",
-    postalCode: "123982",
-    details: "Jl bandung lautan api no. 90 rt 90 rw 20 blok r3 no 33",
-  },
-];
 
 export default function Address() {
   const [addresses, setAddresses] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
-
+  const focused = useIsFocused()
+  
   const addAddressHandler = () => {
     navigation.navigate("AddAddress");
   };
@@ -112,7 +47,7 @@ export default function Address() {
         });
     };
     fetchData();
-  }, []);
+  }, [focused]);
 
   return (
     <View style={styles.whiteBG}>

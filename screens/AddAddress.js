@@ -1,10 +1,4 @@
-import {
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  Text,
-  ActivityIndicator,
-} from "react-native";
+import { StyleSheet, TouchableOpacity, View, Text, ActivityIndicator } from "react-native";
 import React, { useEffect, useState } from "react";
 import Input from "../components/Input";
 import Wrapper from "../components/Wrapper";
@@ -17,89 +11,11 @@ import { deviceStorage } from "../storage/deviceStorage";
 import axios from "axios";
 import { API_BASE_URL } from "../config";
 import { showToast } from "./util";
-const data = [
-  {
-    label: "Pilih Provinsi",
-    value: "0",
-  },
-  {
-    label: "Jawa Barat",
-    value: "1",
-  },
-  {
-    label: "Banten",
-    value: "2",
-  },
-  {
-    label: "DKI Jakarta",
-    value: "3",
-  },
-  {
-    label: "Jawa Barat",
-    value: "1",
-  },
-  {
-    label: "Banten",
-    value: "2",
-  },
-  {
-    label: "DKI Jakarta",
-    value: "3",
-  },
-  {
-    label: "Jawa Barat",
-    value: "1",
-  },
-  {
-    label: "Banten",
-    value: "2",
-  },
-  {
-    label: "DKI Jakarta",
-    value: "3",
-  },
-  {
-    label: "Jawa Barat",
-    value: "1",
-  },
-  {
-    label: "Banten",
-    value: "2",
-  },
-  {
-    label: "DKI Jakarta",
-    value: "3",
-  },
-  {
-    label: "Jawa Barat",
-    value: "1",
-  },
-  {
-    label: "Banten",
-    value: "2",
-  },
-  {
-    label: "DKI Jakarta",
-    value: "3",
-  },
-  {
-    label: "Jawa Barat",
-    value: "1",
-  },
-  {
-    label: "Banten",
-    value: "2",
-  },
-  {
-    label: "DKI Jakarta",
-    value: "3",
-  },
-];
+import { useNavigation } from "@react-navigation/native";
 
 export default function AddAddress() {
   const [provinceLabel, setProvinceLabel] = useState("Pilih Provinsi");
   const [stateLabel, setStateLabel] = useState("Pilih Kabupaten/Kota");
-
   const [name, setName] = useState("");
   const [provinces, setProvinces] = useState([]);
   const [states, setStates] = useState([]);
@@ -109,7 +25,7 @@ export default function AddAddress() {
 
   const [province, setProvince] = useState();
   const [state, setState] = useState();
-
+  const navigator = useNavigation()
   const provincePickHandler = (item) => {
     setProvinceLabel(item.label);
     setProvince(item.id);
@@ -166,6 +82,7 @@ export default function AddAddress() {
       .then((res) => {
         showToast("Alamat berhasil ditambahkan");
         setLoading(false);
+        navigator.navigate("Address")
       })
       .catch((err) => {
         showToast("Alamat gagal ditambahkan, coba lagi nanti");

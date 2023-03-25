@@ -1,11 +1,4 @@
-import {
-  TouchableOpacity,
-  StyleSheet,
-  Image,
-  Text,
-  View,
-  Dimensions,
-} from "react-native";
+import { TouchableOpacity, StyleSheet, Image, Text, View, Dimensions } from "react-native";
 import React from "react";
 import { COLORS } from "../../assets/design";
 import { useNavigation } from "@react-navigation/native";

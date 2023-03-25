@@ -3,12 +3,12 @@ import React from "react";
 import { COLORS } from "../../assets/design";
 import { parseNumToMoney } from "../../screens/util";
 
-export default function DetailHeader({ name, price }) {
+export default function DetailHeader({ name, price, stock }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{name}</Text>
       <Text style={styles.price}>Rp {parseNumToMoney(price)}</Text>
-      <Text style={styles.stock}>Stok 50</Text>
+      <Text style={styles.stock}>Stok {stock}</Text>
     </View>
   );
 }

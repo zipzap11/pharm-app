@@ -104,7 +104,7 @@ export default function Search({ navigation, route }) {
               <FlatList
                 showsVerticalScrollIndicator={false}
                 numColumns={2}
-                data={a}
+                data={products}
                 renderItem={({ item }) => (
                   <Card
                     id={item.id}

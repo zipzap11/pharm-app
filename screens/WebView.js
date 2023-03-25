@@ -4,6 +4,7 @@ import React from "react";
 
 export default function MyWebView({ route }) {
   const param = route.params;
+  console.log("param = ", param.paymentUrl)
   return (
     // <View style={{ flex: 1, backgroundColor: "purple" }}>
     <WebView

@@ -1,6 +1,5 @@
-import { SafeAreaView, StyleSheet, StatusBar, Platform } from "react-native";
+import { SafeAreaView, StyleSheet } from "react-native";
 import React from "react";
-import { COLORS } from "../assets/design";
 
 export default function Wrapper({ children }) {
   return <SafeAreaView style={styles.wrapper}>{children}</SafeAreaView>;

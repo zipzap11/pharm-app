@@ -39,15 +39,6 @@ export default function Picker({ data, onPick, label, Icon }) {
             </TouchableOpacity>
           )}
         />
-        {/* {data.map((item, i) => (
-          <TouchableOpacity
-            style={styles.txtCont}
-            onPress={() => pickHandler(item)}
-            key={i}
-          >
-            <Text style={styles.txt}>{item.label}</Text>
-          </TouchableOpacity>
-        ))} */}
       </Dialog>
     </>
   );

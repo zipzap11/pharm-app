@@ -1,11 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Platform,
-  StatusBar,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, View, Platform, StatusBar, TouchableOpacity } from "react-native";
 import React from "react";
 import SearchingBar from "../SearchingBar";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";

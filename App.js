@@ -1,9 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import {
-  getFocusedRouteNameFromRoute,
-  NavigationContainer,
-} from "@react-navigation/native";
-import { useContext, useState } from "react";
+import { getFocusedRouteNameFromRoute, NavigationContainer } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -11,12 +7,9 @@ import Octicons from "react-native-vector-icons/Octicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import HomeStackNavigation from "./Navigation/HomeStackNavigation";
 import Account from "./screens/Account";
-import History from "./screens/History";
-import WebView from "./screens/WebView";
 import "react-native-get-random-values";
 import { UserContextProvider } from "./context/UserContext";
 import { CartContextProvider } from "./context/CartContext";
-import { COLORS } from "./assets/design";
 import TransactionStackNavigator from "./Navigation/TransactionStackNavigation";
 
 const Tab = createBottomTabNavigator();
@@ -92,11 +85,6 @@ export default function App() {
               }}
               component={Account}
             />
-            {/* <Tab.Screen
-          name="WebView"
-          component={WebView}
-          options={{ headerShown: false }}
-        /> */}
           </Tab.Navigator>
         </NavigationContainer>
       </CartContextProvider>

@@ -6,6 +6,8 @@ import Button from "../Button";
 import { COLORS } from "../../assets/design";
 import { API_BASE_URL } from "../../config";
 import axios from "axios";
+import { useNavigation } from "@react-navigation/native";
+import { showToast } from "../../screens/util";
 
 export default function Register({ toLogin }) {
   const [name, setName] = useState("");
@@ -15,6 +17,7 @@ export default function Register({ toLogin }) {
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const navigation = useNavigation();
   const submitHandler = () => {
     if (password !== passwordConfirm) {
       alert("password harus sama");
@@ -26,13 +29,16 @@ export default function Register({ toLogin }) {
         name,
         email,
         password,
-        // passwordConfirm,
+        passwordConfirm,
       })
       .then((res) => {
         setIsLoading(false);
+        showToast("berhasil membuat akun")
+        toLogin();
       })
       .catch((err) => {
         setIsLoading(false);
+        console.log("err ni = ",err)
         setError(err.message);
       });
   };
